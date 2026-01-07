@@ -1,0 +1,108 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO users (email, first_name, last_name, password_hash, role)\n        VALUES ($1, $2, $3, $4, $5)\n        RETURNING id, email, first_name, last_name, password_hash, role as \"role: UserRole\",\n                  created_at, updated_at, last_login_at, reset_token, reset_token_expires\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "first_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "last_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "password_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "role: UserRole",
+        "type_info": {
+          "Custom": {
+            "name": "user_role",
+            "kind": {
+              "Enum": [
+                "writer",
+                "sponsor",
+                "admin"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 6,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "updated_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 8,
+        "name": "last_login_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 9,
+        "name": "reset_token",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 10,
+        "name": "reset_token_expires",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        {
+          "Custom": {
+            "name": "user_role",
+            "kind": {
+              "Enum": [
+                "writer",
+                "sponsor",
+                "admin"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "d38d1c9119620747c9773137c02c289fdd5ca8388fd2e24785d3f67eca9cb90d"
+}

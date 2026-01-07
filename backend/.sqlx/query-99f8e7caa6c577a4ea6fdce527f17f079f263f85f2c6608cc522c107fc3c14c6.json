@@ -1,0 +1,30 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE bookings SET status = $1 WHERE id = $2",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        {
+          "Custom": {
+            "name": "booking_status",
+            "kind": {
+              "Enum": [
+                "pending_payment",
+                "paid",
+                "approved",
+                "rejected",
+                "published",
+                "cancelled",
+                "refunded"
+              ]
+            }
+          }
+        },
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "99f8e7caa6c577a4ea6fdce527f17f079f263f85f2c6608cc522c107fc3c14c6"
+}

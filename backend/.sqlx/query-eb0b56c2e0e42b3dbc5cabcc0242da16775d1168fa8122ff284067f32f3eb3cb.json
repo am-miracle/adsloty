@@ -1,0 +1,163 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO bookings (\n            writer_id, sponsor_id, slot_date, ad_headline, ad_body,\n            ad_cta_text, ad_cta_url, ad_image_url, status,\n            amount_cents, platform_fee_cents, writer_payout_cents, currency,\n            lemon_order_id\n        )\n        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'pending_payment', $9, $10, $11, $12, $13)\n        RETURNING id, writer_id, sponsor_id, slot_date, ad_headline, ad_body,\n                  ad_cta_text, ad_cta_url, ad_image_url,\n                  status as \"status: BookingStatus\",\n                  amount_cents, platform_fee_cents, writer_payout_cents, currency,\n                  lemon_order_id,\n                  created_at, paid_at, approved_at, rejected_at, published_at\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "writer_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "sponsor_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "slot_date",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 4,
+        "name": "ad_headline",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "ad_body",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "ad_cta_text",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 7,
+        "name": "ad_cta_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 8,
+        "name": "ad_image_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 9,
+        "name": "status: BookingStatus",
+        "type_info": {
+          "Custom": {
+            "name": "booking_status",
+            "kind": {
+              "Enum": [
+                "pending_payment",
+                "paid",
+                "approved",
+                "rejected",
+                "published",
+                "cancelled",
+                "refunded"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 10,
+        "name": "amount_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 11,
+        "name": "platform_fee_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 12,
+        "name": "writer_payout_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 13,
+        "name": "currency",
+        "type_info": "Bpchar"
+      },
+      {
+        "ordinal": 14,
+        "name": "lemon_order_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 15,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 16,
+        "name": "paid_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 17,
+        "name": "approved_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 18,
+        "name": "rejected_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 19,
+        "name": "published_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Date",
+        "Varchar",
+        "Text",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Bpchar",
+        "Varchar"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "eb0b56c2e0e42b3dbc5cabcc0242da16775d1168fa8122ff284067f32f3eb3cb"
+}

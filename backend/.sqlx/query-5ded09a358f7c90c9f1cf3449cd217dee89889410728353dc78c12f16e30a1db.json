@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE users\n        SET reset_token = $1, reset_token_expires = NOW() + INTERVAL '1 hour'\n        WHERE email = $2\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "5ded09a358f7c90c9f1cf3449cd217dee89889410728353dc78c12f16e30a1db"
+}

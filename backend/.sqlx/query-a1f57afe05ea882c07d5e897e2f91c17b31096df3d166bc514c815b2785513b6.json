@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE payouts SET status = $1, failed_at = NOW(), failure_reason = $2 WHERE id = $3",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        {
+          "Custom": {
+            "name": "payout_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "processing",
+                "paid",
+                "failed"
+              ]
+            }
+          }
+        },
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "a1f57afe05ea882c07d5e897e2f91c17b31096df3d166bc514c815b2785513b6"
+}

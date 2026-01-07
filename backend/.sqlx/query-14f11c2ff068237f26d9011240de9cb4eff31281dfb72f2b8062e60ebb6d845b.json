@@ -1,0 +1,108 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE writers\n        SET newsletter_name = COALESCE($1, newsletter_name),\n            newsletter_url = COALESCE($2, newsletter_url),\n            description = COALESCE($3, description),\n            subscriber_count = COALESCE($4, subscriber_count),\n            price_per_slot = COALESCE($5, price_per_slot),\n            lead_time_days = COALESCE($6, lead_time_days),\n            slots_per_week = COALESCE($7, slots_per_week),\n            auto_approve = COALESCE($8, auto_approve),\n            updated_at = NOW()\n        WHERE id = $9\n        RETURNING *\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "newsletter_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "newsletter_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "description",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "subscriber_count",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "price_per_slot",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 7,
+        "name": "currency",
+        "type_info": "Bpchar"
+      },
+      {
+        "ordinal": 8,
+        "name": "lead_time_days",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 9,
+        "name": "slots_per_week",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 10,
+        "name": "auto_approve",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 11,
+        "name": "platform_fee_pct",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 12,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 13,
+        "name": "updated_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Text",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Bool",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "14f11c2ff068237f26d9011240de9cb4eff31281dfb72f2b8062e60ebb6d845b"
+}

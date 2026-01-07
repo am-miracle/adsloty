@@ -1,0 +1,94 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, writer_id, amount_cents, currency,\n               status as \"status: PayoutStatus\",\n               lemon_payout_id, booking_ids,\n               created_at, paid_at, failed_at, failure_reason\n        FROM payouts\n        WHERE writer_id = $1\n        ORDER BY created_at DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "writer_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "amount_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "currency",
+        "type_info": "Bpchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "status: PayoutStatus",
+        "type_info": {
+          "Custom": {
+            "name": "payout_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "processing",
+                "paid",
+                "failed"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 5,
+        "name": "lemon_payout_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "booking_ids",
+        "type_info": "UuidArray"
+      },
+      {
+        "ordinal": 7,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 8,
+        "name": "paid_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 9,
+        "name": "failed_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 10,
+        "name": "failure_reason",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "0d52a1b3ae5c782814332ba9ab2b9870ebe8b07fffdfff728fed673fb6c759cd"
+}

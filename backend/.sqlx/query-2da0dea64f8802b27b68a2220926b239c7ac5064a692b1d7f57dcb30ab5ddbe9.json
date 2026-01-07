@@ -1,0 +1,98 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO payouts (writer_id, amount_cents, currency, booking_ids, lemon_payout_id, status)\n        VALUES ($1, $2, $3, $4, $5, 'processing')\n        RETURNING id, writer_id, amount_cents, currency,\n                  status as \"status: PayoutStatus\",\n                  lemon_payout_id, booking_ids,\n                  created_at, paid_at, failed_at, failure_reason\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "writer_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "amount_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "currency",
+        "type_info": "Bpchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "status: PayoutStatus",
+        "type_info": {
+          "Custom": {
+            "name": "payout_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "processing",
+                "paid",
+                "failed"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 5,
+        "name": "lemon_payout_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "booking_ids",
+        "type_info": "UuidArray"
+      },
+      {
+        "ordinal": 7,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 8,
+        "name": "paid_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 9,
+        "name": "failed_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 10,
+        "name": "failure_reason",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4",
+        "Bpchar",
+        "UuidArray",
+        "Varchar"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "2da0dea64f8802b27b68a2220926b239c7ac5064a692b1d7f57dcb30ab5ddbe9"
+}

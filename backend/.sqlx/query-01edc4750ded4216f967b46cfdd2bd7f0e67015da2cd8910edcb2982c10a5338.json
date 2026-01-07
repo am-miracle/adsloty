@@ -1,0 +1,68 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE sponsors\n        SET company_name = COALESCE($1, company_name),\n            website_url = COALESCE($2, website_url),\n            logo_url = COALESCE($3, logo_url),\n            billing_email = COALESCE($4, billing_email),\n            updated_at = NOW()\n        WHERE id = $5\n        RETURNING *\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "company_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "website_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "logo_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "billing_email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "updated_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "01edc4750ded4216f967b46cfdd2bd7f0e67015da2cd8910edcb2982c10a5338"
+}

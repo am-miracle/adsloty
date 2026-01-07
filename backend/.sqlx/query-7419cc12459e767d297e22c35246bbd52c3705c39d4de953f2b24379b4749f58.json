@@ -1,0 +1,64 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT * FROM sponsors WHERE user_id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "company_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "website_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "logo_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "billing_email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "updated_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "7419cc12459e767d297e22c35246bbd52c3705c39d4de953f2b24379b4749f58"
+}

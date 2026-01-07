@@ -1,0 +1,157 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT\n            b.id, b.slot_date, b.ad_headline, b.ad_body, b.ad_cta_text, b.ad_cta_url, b.ad_image_url,\n            b.status as \"status: BookingStatus\",\n            b.amount_cents, b.platform_fee_cents, b.writer_payout_cents, b.currency,\n            b.created_at, b.paid_at, b.approved_at, b.published_at,\n            b.writer_id, w.newsletter_name,\n            b.sponsor_id, s.company_name, s.logo_url as sponsor_logo_url\n        FROM bookings b\n        JOIN writers w ON w.id = b.writer_id\n        JOIN sponsors s ON s.id = b.sponsor_id\n        WHERE b.sponsor_id = $1\n        ORDER BY b.slot_date DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "slot_date",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 2,
+        "name": "ad_headline",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "ad_body",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "ad_cta_text",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "ad_cta_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "ad_image_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 7,
+        "name": "status: BookingStatus",
+        "type_info": {
+          "Custom": {
+            "name": "booking_status",
+            "kind": {
+              "Enum": [
+                "pending_payment",
+                "paid",
+                "approved",
+                "rejected",
+                "published",
+                "cancelled",
+                "refunded"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 8,
+        "name": "amount_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 9,
+        "name": "platform_fee_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 10,
+        "name": "writer_payout_cents",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 11,
+        "name": "currency",
+        "type_info": "Bpchar"
+      },
+      {
+        "ordinal": 12,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 13,
+        "name": "paid_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 14,
+        "name": "approved_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 15,
+        "name": "published_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 16,
+        "name": "writer_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 17,
+        "name": "newsletter_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 18,
+        "name": "sponsor_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 19,
+        "name": "company_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 20,
+        "name": "sponsor_logo_url",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "81033a4086b60a0c02136a3c5aa625e6d8e217530bb4d721dceb4826cb154dda"
+}

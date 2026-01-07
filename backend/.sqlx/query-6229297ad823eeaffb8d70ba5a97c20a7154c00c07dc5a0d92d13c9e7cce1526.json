@@ -1,0 +1,40 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT\n            COUNT(*) FILTER (WHERE status = 'published') as \"total_published!\",\n            COUNT(*) FILTER (WHERE status IN ('paid', 'approved')) as \"pending_bookings!\",\n            COALESCE(SUM(writer_payout_cents) FILTER (WHERE status = 'published'), 0) as \"total_revenue_cents!\",\n            COALESCE(SUM(writer_payout_cents) FILTER (WHERE status IN ('paid', 'approved')), 0) as \"pending_revenue_cents!\"\n        FROM bookings\n        WHERE writer_id = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "total_published!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 1,
+        "name": "pending_bookings!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 2,
+        "name": "total_revenue_cents!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 3,
+        "name": "pending_revenue_cents!",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "hash": "6229297ad823eeaffb8d70ba5a97c20a7154c00c07dc5a0d92d13c9e7cce1526"
+}

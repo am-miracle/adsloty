@@ -1,0 +1,29 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        WITH date_range AS (\n            SELECT generate_series(\n                CURRENT_DATE + (SELECT lead_time_days FROM writers WHERE id = $1) * INTERVAL '1 day',\n                CURRENT_DATE + $2 * INTERVAL '1 week',\n                INTERVAL '1 week'\n            )::DATE AS week_start\n        ),\n        booked_counts AS (\n            SELECT slot_date, COUNT(*)::INT AS booked\n            FROM bookings\n            WHERE writer_id = $1\n              AND status NOT IN ('rejected', 'cancelled', 'refunded')\n            GROUP BY slot_date\n        )\n        SELECT\n            d.week_start AS \"available_date!\",\n            (w.slots_per_week - COALESCE(bc.booked, 0))::INT AS \"slots_remaining!\"\n        FROM date_range d\n        CROSS JOIN writers w\n        LEFT JOIN booked_counts bc ON bc.slot_date = d.week_start\n        LEFT JOIN blackout_dates bl ON bl.writer_id = $1 AND bl.blocked_date = d.week_start\n        WHERE w.id = $1\n          AND bl.blocked_date IS NULL\n          AND (w.slots_per_week - COALESCE(bc.booked, 0)) > 0\n        ORDER BY d.week_start\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "available_date!",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 1,
+        "name": "slots_remaining!",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Float8"
+      ]
+    },
+    "nullable": [
+      null,
+      null
+    ]
+  },
+  "hash": "941b46bbdaef6e592b5c8d21a47bc3ae1e6e743f89107a5a039f35cbca43ace3"
+}
