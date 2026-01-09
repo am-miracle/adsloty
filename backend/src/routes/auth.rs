@@ -22,7 +22,9 @@ pub fn router() -> Router<AppState> {
         .route("/signup", post(signup))
         .route("/login", post(login))
         .route("/logout", post(logout))
+        .route("/logout-token", post(logout_with_token))
         .route("/me", get(me))
+        .route("/verify", get(verify_token))
         .route("/reset-password", post(request_reset_password))
         .route("/reset-password/confirm", post(confirm_reset_password))
 }
@@ -147,12 +149,53 @@ async fn logout(
     }))
 }
 
+async fn logout_with_token(
+    State(state): State<AppState>,
+    Json(input): Json<LogoutRequest>,
+) -> AppResult<Json<MessageResponse>> {
+    let token = &input.token;
+
+    if let Ok(claims) = state.auth.verify_token(token) {
+        let user_id = state.auth.get_user_id(&claims)?;
+        let _role = state.auth.get_user_role(&claims)?;
+
+        if let Ok(expires_at) = state.auth.get_token_expiry(token) {
+            let token_hash = state.auth.hash_token(token);
+            db::token::blacklist_token(&state.db, &token_hash, user_id, expires_at).await?;
+        }
+    }
+
+    Ok(Json(MessageResponse {
+        message: "Logged out successfully".into(),
+    }))
+}
+
 async fn me(State(state): State<AppState>, Auth(user): Auth) -> AppResult<Json<User>> {
+    // Log access using the email from AuthenticatedUser
+    tracing::debug!("User {} ({}) accessed /me endpoint", user.id, user.email);
+
     let user = db::user::get_user_by_id(&state.db, user.id)
         .await?
         .ok_or(AppError::NotFound("User not found".into()))?;
 
     Ok(Json(user))
+}
+
+#[derive(Debug, serde::Serialize)]
+struct VerifyResponse {
+    valid: bool,
+    user_id: String,
+    email: String,
+    role: String,
+}
+
+async fn verify_token(Auth(user): Auth) -> AppResult<Json<VerifyResponse>> {
+    Ok(Json(VerifyResponse {
+        valid: true,
+        user_id: user.id.to_string(),
+        email: user.email.clone(),
+        role: format!("{:?}", user.role).to_lowercase(),
+    }))
 }
 
 async fn request_reset_password(

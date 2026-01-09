@@ -40,7 +40,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let general_rate_limit = middlewares::general_rate_limit_layer(&rate_limit_config);
 
     let app = Router::new()
-        .nest("/api", routes::api_router())
+        .nest("/api", routes::api_router(&rate_limit_config))
         .layer(general_rate_limit)
         .layer(middleware::from_fn(middlewares::request_logging))
         .layer(TraceLayer::new_for_http())

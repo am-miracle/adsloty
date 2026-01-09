@@ -11,4 +11,4 @@ pub use email::{
 pub use lemonsqueezy::{
     CreateCheckoutParams, LemonSqueezyConfig, LemonSqueezyService, WebhookEvent,
 };
-pub use storage::{CloudinaryConfig, CloudinaryService};
+pub use storage::{CloudinaryConfig, CloudinaryService, ImageTransformations};

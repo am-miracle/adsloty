@@ -108,6 +108,27 @@ async fn handle_order_created(
 
     let order_id = &event.data.id;
 
+    // Extract order attributes for logging and verification
+    if let Some(order_attrs) = event.get_order_attributes() {
+        tracing::info!(
+            "Order {} created: {} {} (status: {}, refunded: {})",
+            order_attrs.order_number,
+            order_attrs.total as f64 / 100.0,
+            order_attrs.currency.to_uppercase(),
+            order_attrs.status,
+            order_attrs.refunded
+        );
+
+        // Verify the order amount matches the booking
+        if order_attrs.total != booking.amount_cents as i64 {
+            tracing::warn!(
+                "Order amount mismatch: expected {} but got {}",
+                booking.amount_cents,
+                order_attrs.total
+            );
+        }
+    }
+
     sqlx::query!(
         "UPDATE bookings SET lemon_order_id = $1 WHERE id = $2",
         order_id,
@@ -202,6 +223,17 @@ async fn handle_order_refunded(
     event: &crate::services::WebhookEvent,
 ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let order_id = &event.data.id;
+
+    // Log refund details from order attributes
+    if let Some(order_attrs) = event.get_order_attributes() {
+        tracing::info!(
+            "Order {} refunded at {}: {} {} refunded",
+            order_attrs.order_number,
+            order_attrs.refunded_at.as_deref().unwrap_or("unknown"),
+            order_attrs.total as f64 / 100.0,
+            order_attrs.currency.to_uppercase()
+        );
+    }
 
     let booking = db::sponsor::get_booking_by_lemon_order(&state.db, order_id)
         .await?

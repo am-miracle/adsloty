@@ -279,7 +279,7 @@ pub struct OrderData {
     pub attributes: OrderAttributes,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, serde::Serialize)]
 pub struct OrderAttributes {
     pub store_id: i64,
     pub customer_id: i64,

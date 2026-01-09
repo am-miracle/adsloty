@@ -24,6 +24,7 @@ pub struct Payout {
     pub status: PayoutStatus,
 
     #[serde(skip_serializing)]
+    #[allow(dead_code)] // Populated by SQLx, used for payment provider reference
     pub lemon_payout_id: Option<String>,
 
     pub booking_ids: Vec<Uuid>,

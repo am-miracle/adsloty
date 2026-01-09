@@ -12,7 +12,9 @@ pub mod auth;
 pub mod rate_limit;
 
 pub use auth::{Auth, SponsorAuth, WriterAuth};
-pub use rate_limit::{general_rate_limit_layer, RateLimitConfig};
+pub use rate_limit::{
+    auth_rate_limit_layer, general_rate_limit_layer, payment_rate_limit_layer, RateLimitConfig,
+};
 
 pub fn cors_layer(config: &CorsConfig) -> CorsLayer {
     let origins: Vec<_> = config

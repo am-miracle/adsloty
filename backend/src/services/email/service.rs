@@ -152,4 +152,13 @@ impl EmailService {
         let html = EmailTemplate::welcome(&data);
         self.send(email, subject, &html).await
     }
+
+    pub async fn send_raw(&self, to: &str, subject: &str, body: &str) -> AppResult<()> {
+        self.send(
+            to,
+            subject,
+            &format!("<html><body><p>{}</p></body></html>", body),
+        )
+        .await
+    }
 }

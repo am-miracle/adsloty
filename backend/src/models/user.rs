@@ -25,8 +25,10 @@ pub struct User {
     pub updated_at: DateTime<Utc>,
     pub last_login_at: Option<DateTime<Utc>>,
     #[serde(skip_serializing)]
+    #[allow(dead_code)] // Populated by SQLx, verified via DB query
     pub reset_token: Option<String>,
     #[serde(skip_serializing)]
+    #[allow(dead_code)] // Populated by SQLx, verified via DB query
     pub reset_token_expires: Option<DateTime<Utc>>,
 }
 
@@ -35,6 +37,7 @@ pub struct CreateUser {
     pub email: String,
     pub first_name: String,
     pub last_name: String,
+    #[allow(dead_code)] // Stored for struct completeness, hashed separately before DB insert
     pub password: String,
     pub role: UserRole,
 }

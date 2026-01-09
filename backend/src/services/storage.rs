@@ -339,7 +339,7 @@ impl std::fmt::Display for ImageTransformations {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize)]
 pub struct SignedUploadParams {
     pub cloud_name: String,
     pub api_key: String,
