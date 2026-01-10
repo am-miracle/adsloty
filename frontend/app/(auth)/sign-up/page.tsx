@@ -40,6 +40,8 @@ const sponsorSchema = z
     firstName: z.string().min(2, "First name must be at least 2 characters"),
     lastName: z.string().min(2, "Last name must be at least 2 characters"),
     email: z.email("Invalid email address"),
+    companyName: z.string().min(2, "Company name is required"),
+    website: z.union([z.literal(""), z.url("Invalid URL format")]).optional(),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
   })
@@ -78,6 +80,8 @@ export default function SignUpPage() {
       firstName: "",
       lastName: "",
       email: "",
+      companyName: "",
+      website: "",
       password: "",
       confirmPassword: "",
     },
@@ -213,6 +217,18 @@ export default function SignUpPage() {
       label: "Email Address",
       placeholder: "john@example.com",
       icon: Mail,
+    },
+    {
+      name: "companyName" as const,
+      label: "Company Name",
+      placeholder: "Acme Inc",
+      icon: Building,
+    },
+    {
+      name: "website" as const,
+      label: "Website (optional)",
+      placeholder: "https://acme.com",
+      icon: Globe,
     },
     {
       name: "password" as const,
@@ -383,10 +399,7 @@ export default function SignUpPage() {
               <div className="grid grid-cols-2 gap-3">
                 {sponsorFields
                   .filter(
-                    (f) =>
-                      f.name !== "email" &&
-                      f.name !== "password" &&
-                      f.name !== "confirmPassword",
+                    (f) => f.name === "firstName" || f.name === "lastName",
                   )
                   .map(({ name, label, placeholder, icon: Icon }) => (
                     <FormField
@@ -417,6 +430,8 @@ export default function SignUpPage() {
                 .filter(
                   (f) =>
                     f.name === "email" ||
+                    f.name === "companyName" ||
+                    f.name === "website" ||
                     f.name === "password" ||
                     f.name === "confirmPassword",
                 )

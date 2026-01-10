@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { DataTable, Column } from "@/components/ui/data-table";
 import {
   AdRequestCard,
@@ -204,20 +203,17 @@ export default function DashboardPage() {
   ]);
 
   useEffect(() => {
-    // Animate stats cards on mount
     const cards = statsCardsRef.current.filter((card) => card !== null);
     if (cards.length > 0) {
       animateStatsCards(cards as HTMLElement[]);
     }
 
-    // Animate ad request cards
     adCardsRef.current.forEach((card, index) => {
       if (card) {
         animateAdRequestCard(card, index);
       }
     });
 
-    // Animate availability slots
     if (availabilitySlotsRef.current) {
       const slots = availabilitySlotsRef.current.querySelectorAll(
         "[data-slot]",
@@ -225,17 +221,14 @@ export default function DashboardPage() {
       animateAvailabilitySlots(Array.from(slots));
     }
 
-    // Animate stats card
     if (statsCardRef.current) {
       animateFadeIn(statsCardRef.current, 0.3);
     }
 
-    // Animate table
     if (tableRef.current) {
       animateFadeIn(tableRef.current, 0.5);
     }
 
-    // Animate number counters
     if (revenueRef.current) {
       animateNumberCounter(revenueRef.current, 0, 12450, 2);
     }
@@ -254,10 +247,8 @@ export default function DashboardPage() {
   const handleApprove = (id: string) => {
     const request = adRequests.find((r) => r.id === id);
     if (request) {
-      // Remove from pending requests
       setAdRequests((prev) => prev.filter((r) => r.id !== id));
 
-      // Add to activity log
       const newActivity: ActivityRow = {
         id: Date.now().toString(),
         sponsor: request.companyName,
@@ -441,7 +432,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold mb-2">
@@ -550,13 +541,13 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <QuickActions
+        {/*<QuickActions
           pendingBalance={pendingBalance}
           onViewBookings={handleViewBookings}
           onAddBlackoutDate={handleAddBlackoutDate}
           onGetWidgetCode={handleGetWidgetCode}
           onRequestPayout={handleRequestPayout}
-        />
+        />*/}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 flex flex-col gap-6">
@@ -661,6 +652,6 @@ export default function DashboardPage() {
           onReject={handleRejectBooking}
         />
       )}
-    </DashboardLayout>
+    </>
   );
 }

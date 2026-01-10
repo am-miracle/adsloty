@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { Calendar, DollarSign, TrendingUp } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export interface TimelineBooking {
@@ -137,7 +137,6 @@ export function TimelineView({ bookings, onViewDetails }: TimelineViewProps) {
 
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                          <DollarSign className="w-4 h-4 text-green-400" />
                           <span className="font-semibold">
                             ${booking.amount.toFixed(2)}
                           </span>
@@ -145,7 +144,6 @@ export function TimelineView({ bookings, onViewDetails }: TimelineViewProps) {
 
                         {booking.fitScore && (
                           <div className="flex items-center gap-2">
-                            <TrendingUp className="w-4 h-4 text-primary" />
                             <span
                               className={`font-semibold ${getFitScoreColor(
                                 booking.fitScore,

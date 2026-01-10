@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import {
   ReviewBookingModal,
   BookingData,
@@ -21,7 +20,6 @@ import {
   XCircle,
   AlertCircle,
   TrendingUp,
-  DollarSign,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -294,7 +292,7 @@ export default function BookingsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-6">
         <div ref={headerRef} className="flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -467,7 +465,6 @@ export default function BookingsPage() {
                           <span>{booking.weekStarting}</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-text-secondary">
-                          <DollarSign className="w-4 h-4" />
                           <span className="font-semibold text-white">
                             ${booking.amount.toFixed(2)}
                           </span>
@@ -582,7 +579,6 @@ export default function BookingsPage() {
 
                     <div className="flex items-center justify-between pt-3 border-t border-border">
                       <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4 text-primary" />
                         <span className="font-bold">${booking.amount}</span>
                       </div>
                       {booking.fitScore && (
@@ -721,6 +717,6 @@ export default function BookingsPage() {
           onReject={handleRejectBooking}
         />
       )}
-    </DashboardLayout>
+    </>
   );
 }

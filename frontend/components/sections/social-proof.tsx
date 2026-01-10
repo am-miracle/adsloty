@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Quote, Star } from "lucide-react";
 import { fadeInUpScroll, scaleIn, staggerFadeIn } from "@/lib/animations";
-
+import { Bolt, Diamond, Hub, RocketLaunch, Verified } from "../icons";
 const testimonials = [
   {
     name: "Sarah Johnson",
@@ -151,20 +151,25 @@ export function SocialProof() {
           <p className="text-text-secondary mb-8">
             Featured in and trusted by leading publications
           </p>
-          <div className="glass-strong rounded-2xl p-8 flex flex-wrap items-center justify-center gap-12">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div
-                key={i}
-                className="w-32 h-12 rounded-lg bg-linear-to-br from-primary/10 to-purple-600/10 flex items-center justify-center"
-              >
-                <span className="text-text-secondary text-xs">Logo {i}</span>
+          <div className="rounded-2xl p-8 flex flex-wrap items-center justify-center gap-12">
+            <div className="grid grid-cols-2 gap-8 opacity-50 md:grid-cols-4 lg:grid-cols-5 items-center justify-items-center grayscale hover:grayscale-0 transition-all duration-500">
+              <div className="text-white font-bold text-xl flex items-center gap-2">
+                <RocketLaunch /> AcmeCorp
               </div>
-            ))}
+              <div className="text-white font-bold text-xl flex items-center gap-2">
+                <Bolt /> FastSaaS
+              </div>
+              <div className="text-white font-bold text-xl flex items-center gap-2">
+                <Diamond /> LuxeLetter
+              </div>
+              <div className="text-white font-bold text-xl flex items-center gap-2">
+                <Verified /> TrustMedia
+              </div>
+              <div className="text-white font-bold text-xl flex items-center gap-2">
+                <Hub /> ConnectIO
+              </div>
+            </div>
           </div>
-          <p className="text-text-secondary text-xs mt-4">
-            Image: Add logos of well-known newsletters or publications using
-            Adsloty (Product Hunt, TechCrunch, etc.)
-          </p>
         </div>
       </div>
     </section>

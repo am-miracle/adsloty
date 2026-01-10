@@ -3,17 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { User, Bell, Menu, X, ChevronDown } from "lucide-react";
 import {
-  LayoutDashboard,
-  Mail,
-  Calendar,
-  DollarSign,
-  User,
-  Bell,
-  Menu,
-  X,
-  ChevronDown,
-} from "lucide-react";
+  RiListView,
+  RiDashboardLine,
+  RiCalendarScheduleLine,
+  RiWallet3Line,
+} from "@remixicon/react";
 import Logo from "../ui/logo";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,10 +17,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/dashboard/requests", label: "Ad Requests", icon: Mail },
-  { href: "/dashboard/schedule", label: "Schedule", icon: Calendar },
-  { href: "/dashboard/payouts", label: "Payouts", icon: DollarSign },
+  { href: "/dashboard", label: "Dashboard", icon: RiDashboardLine },
+  { href: "/dashboard/requests", label: "Ad Requests", icon: RiListView },
+  {
+    href: "/dashboard/schedule",
+    label: "Schedule",
+    icon: RiCalendarScheduleLine,
+  },
+  { href: "/dashboard/payouts", label: "Payouts", icon: RiWallet3Line },
   { href: "/dashboard/profile", label: "Profile", icon: User },
 ];
 

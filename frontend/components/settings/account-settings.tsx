@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Input } from "../ui/input";
 
 interface AccountSettingsData {
   email: string;
@@ -30,7 +31,7 @@ export function AccountSettings({
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <div className="flex gap-2">
-            <input
+            <Input
               id="email"
               type="email"
               value={data.email}
@@ -46,7 +47,7 @@ export function AccountSettings({
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <div className="flex gap-2">
-            <input
+            <Input
               id="password"
               type="password"
               value="••••••••"

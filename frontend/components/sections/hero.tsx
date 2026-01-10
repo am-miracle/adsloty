@@ -3,10 +3,11 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { floatingAnimation } from "@/lib/animations";
 import { gsap } from "gsap";
 import Link from "next/link";
+import { RiCalendarCheckLine } from "@remixicon/react";
 
 export function Hero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -95,8 +96,7 @@ export function Hero() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <Button className="group">
-                Get Started Free
-                <Link href={"/sign-up"}>Get Started</Link>
+                <Link href={"/sign-up"}>Get Started Free</Link>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button variant="outline">View Demo</Button>
@@ -138,7 +138,7 @@ export function Hero() {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 lg:h-10 lg:w-10 rounded-full bg-primary flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-white" />
+                    <RiCalendarCheckLine className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <div className="text-sm font-semibold">New Booking</div>

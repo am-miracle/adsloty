@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import gsap from "gsap";
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import {
   CalendarGrid,
   CalendarSlot,
@@ -26,7 +25,6 @@ import {
   CheckCircle2,
   Clock,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 type ViewMode = "calendar" | "timeline";
 
@@ -235,8 +233,12 @@ function ScheduleContent() {
 
     const action = searchParams.get("action");
     if (action === "blackout") {
-      setIsBlackoutModalOpen(true);
-      setSelectedDate(new Date());
+      const timer = setTimeout(() => {
+        setIsBlackoutModalOpen(true);
+        setSelectedDate(new Date());
+      }, 0);
+
+      return () => clearTimeout(timer);
     }
   }, [searchParams]);
 
@@ -325,7 +327,7 @@ function ScheduleContent() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-6">
         <div ref={headerRef}>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -368,8 +370,7 @@ function ScheduleContent() {
             className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"
           >
             <div className="glass-strong rounded-xl p-4 border border-primary/30 bg-primary/5">
-              <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="w-4 h-4 text-primary" />
+              <div className="mb-2">
                 <span className="text-text-secondary text-sm">Booked</span>
               </div>
               <div className="text-2xl font-bold text-primary">
@@ -378,8 +379,7 @@ function ScheduleContent() {
             </div>
 
             <div className="glass-strong rounded-xl p-4 border border-yellow-500/30 bg-yellow-500/5">
-              <div className="flex items-center gap-2 mb-2">
-                <Clock className="w-4 h-4 text-yellow-400" />
+              <div className="mb-2">
                 <span className="text-text-secondary text-sm">Pending</span>
               </div>
               <div className="text-2xl font-bold text-yellow-400">
@@ -388,8 +388,7 @@ function ScheduleContent() {
             </div>
 
             <div className="glass-strong rounded-xl p-4 border border-green-500/30 bg-green-500/5">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-4 h-4 text-green-400" />
+              <div className="mb-2">
                 <span className="text-text-secondary text-sm">Available</span>
               </div>
               <div className="text-2xl font-bold text-green-400">
@@ -398,8 +397,7 @@ function ScheduleContent() {
             </div>
 
             <div className="glass-strong rounded-xl p-4 border border-red-500/30 bg-red-500/5">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertCircle className="w-4 h-4 text-red-400" />
+              <div className="mb-2">
                 <span className="text-text-secondary text-sm">Blackout</span>
               </div>
               <div className="text-2xl font-bold text-red-400">
@@ -452,7 +450,7 @@ function ScheduleContent() {
         onReject={handleRejectBooking}
         onViewFull={handleViewFullDetails}
       />
-    </DashboardLayout>
+    </>
   );
 }
 
@@ -460,14 +458,14 @@ export default function SchedulePage() {
   return (
     <Suspense
       fallback={
-        <DashboardLayout>
+        <>
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
               <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
               <p className="text-text-secondary">Loading schedule...</p>
             </div>
           </div>
-        </DashboardLayout>
+        </>
       }
     >
       <ScheduleContent />

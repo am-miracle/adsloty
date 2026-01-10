@@ -2,15 +2,14 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import {
-  Rocket,
-  DollarSign,
-  Calendar,
-  Shield,
-  BarChart3,
-  Zap,
-} from "lucide-react";
+import { Rocket, BarChart3 } from "lucide-react";
 import { fadeInUpScroll, staggerFadeIn } from "@/lib/animations";
+import {
+  RiCalendarScheduleLine,
+  RiLink,
+  RiListCheck3,
+  RiListView,
+} from "@remixicon/react";
 
 const features = [
   {
@@ -20,19 +19,19 @@ const features = [
       "No more back-and-forth emails. Sponsors browse, book, and pay for ad slots instantly. Writers approve and get paid automatically.",
   },
   {
-    icon: DollarSign,
+    icon: RiListView,
     title: "Automated Payouts",
     description:
       "Set your price, manage availability, and receive payments automatically. Platform handles all payment processing and fee management.",
   },
   {
-    icon: Calendar,
+    icon: RiCalendarScheduleLine,
     title: "Smart Scheduling",
     description:
       "Control your availability with blackout dates, lead times, and slots per week. Let sponsors book only when you're ready.",
   },
   {
-    icon: Shield,
+    icon: RiListCheck3,
     title: "Review & Approve",
     description:
       "Full control over what gets published. Review ad content, approve or reject submissions, and maintain your newsletter's integrity.",
@@ -44,7 +43,7 @@ const features = [
       "Track bookings, revenue, and performance metrics in real-time. Get insights to optimize pricing and maximize earnings.",
   },
   {
-    icon: Zap,
+    icon: RiLink,
     title: "Instant Integration",
     description:
       "Embed booking widgets on your site or use our API. Get started in minutes with seamless integration options.",
@@ -76,7 +75,6 @@ export function Features() {
       <div className="container-padding mx-auto max-w-7xl relative z-10">
         <div ref={headingRef} className="text-center mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
-            <Zap className="w-4 h-4" />
             Platform Features
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">

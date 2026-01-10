@@ -11,7 +11,7 @@ import Logo from "../ui/logo";
 const navLinks = [
   { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Newsletter", href: "/newsletters" },
   { label: "Testimonials", href: "#testimonials" },
 ];
 
@@ -171,11 +171,8 @@ export function Navbar() {
           </div>
 
           <div className="mobile-nav-item absolute bottom-8 left-0 right-0 text-center">
-            <div className="flex items-center justify-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary/30">
-                A
-              </div>
-              <span className="text-lg font-bold gradient-text">Adsloty</span>
+            <div className="flex items-center justify-center">
+              <Logo />
             </div>
             <p className="text-xs text-text-secondary mt-2">
               Newsletter Advertising Made Simple

@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import gsap from "gsap";
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { BalanceCard, BalanceData } from "@/components/payouts/balance-card";
 import {
   PayoutRequestModal,
@@ -16,9 +15,9 @@ import {
 import { Notification, NotificationType } from "@/components/ui/notification";
 import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function PayoutsContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [isPayoutModalOpen, setIsPayoutModalOpen] = useState(false);
   const [notification, setNotification] = useState({
@@ -170,7 +169,11 @@ function PayoutsContent() {
 
     const action = searchParams.get("action");
     if (action === "request") {
-      setIsPayoutModalOpen(true);
+      const timer = setTimeout(() => {
+        setIsPayoutModalOpen(true);
+      }, 0);
+
+      return () => clearTimeout(timer);
     }
   }, [searchParams]);
 
@@ -212,12 +215,8 @@ function PayoutsContent() {
     showNotification("info", "Downloading invoice...");
   };
 
-  const handleManagePaymentMethods = () => {
-    router.push("/dashboard/settings?tab=payment-methods");
-  };
-
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-6">
         <div ref={headerRef}>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -229,13 +228,14 @@ function PayoutsContent() {
                 Manage your earnings and withdraw funds
               </p>
             </div>
-            <Button
-              onClick={handleManagePaymentMethods}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <Settings className="w-4 h-4" />
-              Payment Methods
+            <Button variant="outline">
+              <Link
+                href={"/dashboard/settings"}
+                className="flex items-center gap-2"
+              >
+                <Settings className="w-4 h-4" />
+                Payment Methods
+              </Link>
             </Button>
           </div>
 
@@ -304,12 +304,8 @@ function PayoutsContent() {
                   </div>
                 ))}
               </div>
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={handleManagePaymentMethods}
-              >
-                Add Payment Method
+              <Button variant="outline" className="w-full" asChild>
+                <Link href="/dashboard/settings">Add Payment Method</Link>
               </Button>
             </div>
           </div>
@@ -339,7 +335,7 @@ function PayoutsContent() {
         onClose={() => setIsPayoutModalOpen(false)}
         onConfirm={handleConfirmPayout}
       />
-    </DashboardLayout>
+    </>
   );
 }
 
@@ -347,14 +343,14 @@ export default function PayoutsPage() {
   return (
     <Suspense
       fallback={
-        <DashboardLayout>
+        <>
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
               <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
               <p className="text-text-secondary">Loading payouts...</p>
             </div>
           </div>
-        </DashboardLayout>
+        </>
       }
     >
       <PayoutsContent />

@@ -2,18 +2,17 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import {
-  UserPlus,
-  Search,
-  CreditCard,
-  CheckCircle,
-  Calendar,
-} from "lucide-react";
+import { UserPlus, CreditCard, CheckCircle } from "lucide-react";
 import {
   fadeInUpScroll,
   slideInFromLeft,
   slideInFromRight,
 } from "@/lib/animations";
+import {
+  RiLineChartLine,
+  RiMenuSearchLine,
+  RiShoppingCart2Line,
+} from "@remixicon/react";
 
 const steps = {
   writers: [
@@ -41,21 +40,21 @@ const steps = {
   ],
   sponsors: [
     {
-      icon: Search,
+      icon: RiMenuSearchLine,
       step: "1",
       title: "Browse Newsletters",
       description:
         "Search newsletters by niche, audience size, and demographics to find your perfect match.",
     },
     {
-      icon: Calendar,
+      icon: RiShoppingCart2Line,
       step: "2",
       title: "Book Ad Slots",
       description:
         "Select available dates, submit your ad content, and pay securely via LemonSqueezy.",
     },
     {
-      icon: CheckCircle,
+      icon: RiLineChartLine,
       step: "3",
       title: "Track Performance",
       description:

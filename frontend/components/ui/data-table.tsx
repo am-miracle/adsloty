@@ -60,7 +60,6 @@ export function DataTable<T extends Record<string, any>>({
     return matchesSearch && matchesFilter;
   });
 
-  // Pagination
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -72,7 +71,6 @@ export function DataTable<T extends Record<string, any>>({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Search and Filter Bar */}
       {(searchable || filterable) && (
         <div className="flex flex-col sm:flex-row gap-3">
           {searchable && (
@@ -113,15 +111,14 @@ export function DataTable<T extends Record<string, any>>({
         </div>
       )}
 
-      {/* Table */}
       <div className="glass-strong rounded-2xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="bg-surface-dark text-xs uppercase font-semibold">
               <tr>
-                {columns.map((column) => (
+                {columns.map((column, index) => (
                   <th
-                    key={column.key}
+                    key={index}
                     className={`px-6 py-4 ${
                       column.align === "right"
                         ? "text-right"
@@ -145,9 +142,9 @@ export function DataTable<T extends Record<string, any>>({
                       onRowClick ? "cursor-pointer" : ""
                     }`}
                   >
-                    {columns.map((column) => (
+                    {columns.map((column, index) => (
                       <td
-                        key={column.key}
+                        key={index}
                         className={`px-6 py-4 ${
                           column.align === "right"
                             ? "text-right"
@@ -178,7 +175,6 @@ export function DataTable<T extends Record<string, any>>({
         </div>
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
           <p className="text-sm text-text-secondary">
